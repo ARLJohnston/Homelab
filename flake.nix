@@ -6,12 +6,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     sops-nix.url = "github:Mic92/sops-nix";
-
   };
-  outputs = { self, nixpkgs }@inputs: {
+  outputs = {
+    self,
+    nixpkgs,
+  } @ inputs: {
     nixosConfigurations = {
       hephaestus = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
+        specialArgs = {inherit inputs;};
         system = "x86_64-linux";
         modules = [
           {
@@ -23,11 +25,13 @@
           ({...}: {
             services.comin = {
               enable = true;
-              remotes = [{
-                name = "origin";
-                url = "https://github.com/ARLJohnston/Homelab.git";
-                branches.main.name = "main";
-              }];
+              remotes = [
+                {
+                  name = "origin";
+                  url = "https://github.com/ARLJohnston/Homelab.git";
+                  branches.main.name = "main";
+                }
+              ];
               hostname = "hephaestus ";
             };
           })

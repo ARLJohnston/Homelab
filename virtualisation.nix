@@ -1,15 +1,18 @@
-{ pkgs, inputs, config, ... }:
 {
-  imports = [
-    inputs.sops-nix.nixosModules.sops
-  ];
-
+  pkgs,
+  inputs,
+  config,
+  ...
+}: {
   virtualisation = {
     containers.enable = true;
     docker = {
-        enable = true;
-        daemon.settings = {metrics-addr = "0.0.0.0:9323"; experimental = true; };
+      enable = true;
+      daemon.settings = {
+        metrics-addr = "0.0.0.0:9323";
+        experimental = true;
       };
+    };
   };
 
   services.prometheus = {
@@ -25,7 +28,6 @@
       node.enable = true;
       systemd.enable = true;
     };
-
 
     scrapeConfigs = [
       {
