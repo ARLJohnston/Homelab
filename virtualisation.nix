@@ -4,6 +4,13 @@
   config,
   ...
 }: {
+  networking.hostName = "hephaestus";
+  users = {
+    users.root.openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKklwiiuDNGd0+OdLJ8WsMJ+3ZgxCXpvWh2si4AwMzSv"];
+    users.root.initialHashedPassword = "";
+  };
+  services.getty.autologinUser = "root";
+
   virtualisation = {
     containers.enable = true;
     docker = {
