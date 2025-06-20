@@ -4,12 +4,22 @@
   config,
   ...
 }: {
+  environment.systemPackages = with pkgs; [
+    alejandra
+    curl
+    git
+  ];
+
   networking.hostName = "hephaestus";
   users = {
     users.root.openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKklwiiuDNGd0+OdLJ8WsMJ+3ZgxCXpvWh2si4AwMzSv"];
     users.root.initialHashedPassword = "";
   };
   services.getty.autologinUser = "root";
+
+  networking = {
+    networkmanager.enable = true;
+  };
 
   virtualisation = {
     containers.enable = true;
