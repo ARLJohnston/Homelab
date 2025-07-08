@@ -8,8 +8,8 @@
     sops-nix.url = "github:Mic92/sops-nix";
   };
   outputs = {
-    self,
     nixpkgs,
+    ...
   } @ inputs: {
     nixosConfigurations = {
       hephaestus = nixpkgs.lib.nixosSystem {
@@ -32,7 +32,7 @@
                   branches.main.name = "main";
                 }
               ];
-              hostname = "hephaestus ";
+              hostname = "hephaestus";
             };
           })
         ];
