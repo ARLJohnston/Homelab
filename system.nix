@@ -37,4 +37,12 @@
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
   };
+
+  systemd.services.logind = {
+    enable = true;
+    settings = {
+      HandleLidSwitch = "ignore";  # Prevent suspend on lid close
+    };
+  };
+
 }
