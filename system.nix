@@ -15,11 +15,6 @@
     inputs.proxmox-nixos.overlays."x86_64-linux"
   ];
 
-  services.proxmox-ve = {
-    enable = true;
-    ipAddress = "192.168.1.1";
-  };
-
   sops.defaultSopsFile = ./secrets/secrets.yaml;
   sops.defaultSopsFormat = "yaml";
   sops.age.keyFile = "/home/alistair/.config/sops/age/keys.txt";
