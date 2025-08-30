@@ -8,13 +8,22 @@
   imports = [
     ./hardware-configuration.nix
     inputs.sops-nix.nixosModules.sops
+    inputs.proxmox-nixos.nixosModules.proxmox-ve
   ];
+
+  nixpkgs.overlays = [
+    inputs.proxmox-nixos.overlays."x86_64-linux"
+  ];
+
+  services.proxmox-ve = {
+    enable = true;
+    ipAddress = "192.168.1.1";
+  };
 
   sops.defaultSopsFile = ./secrets/secrets.yaml;
   sops.defaultSopsFormat = "yaml";
   sops.age.keyFile = "/home/alistair/.config/sops/age/keys.txt";
   sops.secrets.k3s_cluster_secret = {};
-
 
   services.openssh = {
     enable = true;
@@ -45,7 +54,10 @@
     efi.canTouchEfiVariables = true;
   };
 
-  services.logind.lidSwitch = "ignore";
+  services.logind = {
+    lidSwitch = "ignore";
+    lidSwitchDocked = "ignore";
+  };
 
   services.k3s = {
     enable = true;

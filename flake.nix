@@ -6,11 +6,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     sops-nix.url = "github:Mic92/sops-nix";
+    proxmox-nixos.url = "github:SaumonNet/proxmox-nixos";
   };
-  outputs = {
-    nixpkgs,
-    ...
-  } @ inputs: {
+  outputs = {nixpkgs, ...} @ inputs: {
     nixosConfigurations = {
       hephaestus = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs;};
