@@ -63,6 +63,14 @@
           }
         ];
       }
+      {
+        job_name = "Router";
+        static_configs = [
+          {
+            targets = ["192.168.8.1:9100"];
+          }
+        ];
+      }
     ];
   };
 
