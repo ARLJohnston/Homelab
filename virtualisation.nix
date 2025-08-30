@@ -79,7 +79,7 @@
     settings = {
       security.admin_password = config.sops.secrets.grafana.admin_password.path;
       server = {
-        http_addr = "localhost";
+        http_addr = "127.0.0.1";
         http_port = 3000;
       };
     };
