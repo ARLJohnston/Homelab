@@ -30,6 +30,9 @@
                   branches.main.name = "main";
                 }
               ];
+              exporter = {
+                openFirewall = true;
+              };
               hostname = "hephaestus";
             };
           })

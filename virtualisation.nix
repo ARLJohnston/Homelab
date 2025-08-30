@@ -55,6 +55,14 @@
           }
         ];
       }
+      {
+        job_name = "Comin";
+        static_configs = [
+          {
+            targets = ["localhost:4243"];
+          }
+        ];
+      }
     ];
   };
 
@@ -77,5 +85,10 @@
   boot.kernel.sysctl = {
     "net.ipv6.conf.all.disable_ipv6" = 1;
     "net.ipv6.conf.default.disable_ipv6" = 1;
+  };
+
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ 3000 9090 ];
   };
 }
