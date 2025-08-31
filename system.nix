@@ -18,7 +18,6 @@
   sops.defaultSopsFile = ./secrets/secrets.yaml;
   sops.defaultSopsFormat = "yaml";
   sops.age.keyFile = "/home/alistair/.config/sops/age/keys.txt";
-  sops.secrets.k3s_cluster_secret = {};
 
   services.openssh = {
     enable = true;
@@ -61,10 +60,26 @@
     lidSwitchDocked = "ignore";
   };
 
+  sops.secrets = {
+    k3s_cluster_secret = {};
+    "grafana.admin_password" = {};
+  };
+
   services.k3s = {
     enable = true;
     role = "server";
     token = config.sops.secrets.k3s_cluster_secret.path;
     clusterInit = true;
+  };
+
+  services.grafana = {
+    enable = true;
+    settings = {
+      security.admin_password = config.sops.secrets."grafana.admin_password".path;
+      server = {
+        http_addr = "127.0.0.1";
+        http_port = 3000;
+      };
+    };
   };
 }
