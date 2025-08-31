@@ -1,13 +1,4 @@
-#+BEGIN_SRC emacs-lisp
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((dot . t)))
-#+END_SRC
-
 * Current Architecture
-[[file:images/architecture.png]]
-
-
 #+BEGIN_SRC dot :file images/architecture.png :exports results
     digraph G
     {
