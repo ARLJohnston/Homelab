@@ -62,7 +62,7 @@
 
   sops.secrets = {
     k3s_cluster_secret = {};
-    "grafana.admin_password" = {};
+    "grafana/admin_password" = {};
   };
 
   services.k3s = {
@@ -75,7 +75,7 @@
   services.grafana = {
     enable = true;
     settings = {
-      security.admin_password = config.sops.secrets."grafana.admin_password".path;
+      security.admin_password = config.sops.secrets."grafana/admin_password".path;
       server = {
         http_port = 3000;
       };
