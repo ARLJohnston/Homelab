@@ -1,0 +1,48 @@
+#+BEGIN_SRC emacs-lisp
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((dot . t)))
+#+END_SRC
+
+* Current Architecture
+[[file:images/architecture.png]]
+
+
+#+BEGIN_SRC dot :file images/architecture.png :exports results
+    digraph G
+    {
+      compound=true;
+      rankdir = "LR";
+
+      Git [ fixedsize=true, image="images/git.png", label="Git", labelloc=b, shape=none, height=1.0, width=1.0  ];
+
+      Git -> Comin [dir=back];
+
+      subgraph Host {
+      label="Host";
+      cluster=true;
+      margin=16;
+      shape=box;
+      shape=box;
+      style=rounded;
+
+
+      Grafana [ fixedsize=true, image="images/grafana.png", label="Grafana", labelloc=b, shape=none, height=1.0, width=1.0 ];
+      Prometheus [ fixedsize=true, image="images/prometheus.png", label="Prometheus", labelloc=b, shape=none, height=1.0, width=1.0 ];
+      Comin [ fixedsize=true, image="images/nixos.png", label="Comin", labelloc=b, shape=none, height=1.0, width=1.0 ];
+
+      Grafana -> Prometheus [dir=back];
+      Comin -> Grafana [style=invis];
+      Comin -> Prometheus;
+
+        subgraph K3s {
+        label="K3s";
+        temp[label="No services currently deployed"];
+        };
+      };
+      temp -> Prometheus [ltail=K3s];
+  }
+#+END_SRC
+
+#+RESULTS:
+[[file:images/architecture.png]]
