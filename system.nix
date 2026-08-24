@@ -68,8 +68,15 @@
   services.k3s = {
     enable = true;
     role = "server";
-    token = config.sops.secrets.k3s_cluster_secret.path;
     clusterInit = true;
+
+    tokenFile = config.sops.secrets.k3s_cluster_secret.path;
+
+    extraFlags = [
+      "--node-ip=192.168.8.141"
+      "--advertise-address=192.168.8.141"
+      "--disable=traefik"
+    ];
   };
 
   services.grafana = {
