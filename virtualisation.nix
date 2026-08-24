@@ -9,6 +9,8 @@
     argocd
     curl
     git
+    kubernetes-helm
+    helmfile
   ];
 
   networking.hostName = "hephaestus";
