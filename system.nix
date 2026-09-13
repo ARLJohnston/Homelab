@@ -89,4 +89,25 @@
       };
     };
   };
+  # Ollama Service Configuration & Networking Requirements
+  services.ollama = {
+    enable = true;
+    package = pkgs.ollama-cuda;
+    host = "0.0.0.0";
+    port = 11434;
+  };
+
+  systemd.services.ollama.environment = {OLLAMA_CONTEXT_LENGTH = "32768";};
+
+  environment.systemPackages = with pkgs; [
+    ollama
+  ];
+
+  hardware.graphics.enable = true;
+  hardware.nvidia = {
+    open = false;
+    modesetting.enable = true;
+
+    package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
+  };
 }
