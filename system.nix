@@ -108,13 +108,15 @@
     ollama
   ];
 
+  services.xserver.videoDrivers = ["nvidia"];
   nixpkgs.config.allowUnfreePredicate = pkg:
-    builtins.elem (lib.getName pkg) ["cuda_cudart" "cuda_nvcc" "cuda_cccl" "libcublas" "cuda_nvrtc"];
+    builtins.elem (lib.getName pkg) ["cuda_cudart" "cuda_nvcc" "cuda_cccl" "libcublas" "cuda_nvrtc" "nvidia-x11" "nvidia-settings" "nvidia-kernel-modules"];
   hardware.graphics.enable = true;
   hardware.nvidia = {
     open = false;
     modesetting.enable = true;
 
-    package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
+    branch = "legacy_580";
+    nvidiaPersistenced = true;
   };
 }
