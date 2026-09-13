@@ -89,6 +89,11 @@
 
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [3000 9090 11434];
+    allowedTCPPorts = [
+      3000 # Grafana
+      9090 # Prometheus
+      11434 # Ollama
+      3001 # Anythingllm
+    ];
   };
 }
