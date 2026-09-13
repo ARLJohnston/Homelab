@@ -97,7 +97,10 @@
   # Ollama Service Configuration & Networking Requirements
   services.ollama = {
     enable = true;
-    package = pkgs.ollama-cuda;
+    package = pkgs.ollama-cuda.override {
+        # nvidia-smi --query-gpu=compute_cap
+        cudaArches = [ "61" ];
+    };
     host = "0.0.0.0";
     port = 11434;
   };
@@ -105,10 +108,11 @@
   systemd.services.ollama.environment = {OLLAMA_CONTEXT_LENGTH = "32768";};
 
   environment.systemPackages = with pkgs; [
-    ollama
+    ollama-cuda
   ];
+  hardware.nvidia-container-toolkit.enable = true;
 
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) ["cuda_cudart" "cuda_nvcc" "cuda_cccl" "libcublas" "cuda_nvrtc" "nvidia-x11" "nvidia-settings" "nvidia-kernel-modules"];
   hardware.graphics.enable = true;
@@ -116,7 +120,7 @@
     open = false;
     modesetting.enable = true;
 
-    branch = "legacy_580";
     nvidiaPersistenced = true;
+    package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
   };
 }
