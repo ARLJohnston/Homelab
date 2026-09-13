@@ -63,6 +63,7 @@
   sops.secrets = {
     k3s_cluster_secret = {};
     "grafana/admin_password" = {};
+    "grafana/secret_key" = {};
   };
 
   services.k3s = {
@@ -87,6 +88,7 @@
         http_addr = "0.0.0.0";
         http_port = 3000;
       };
+      security.secret_key = config.sops.secrets."grafana/secret_key".path;
     };
   };
   # Ollama Service Configuration & Networking Requirements
