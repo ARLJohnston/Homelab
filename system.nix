@@ -39,7 +39,10 @@
   };
 
   nix.settings = {
-    experimental-features = lib.mkDefault "nix-command flakes";
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
     trusted-users = ["root" "@wheel"];
 
     extra-substituters = ["https://cache.nixos.org/" "https://nix-community.cachix.org/" "https://cache.saumon.network/proxmox-nixos"];
