@@ -10,3 +10,11 @@ repos:
   rev: 4.0.0
   hooks:
     - id: alejandra-system
+- repo: local
+  hooks:
+  - id: nix-flake-check
+    name: nix flake check
+    entry: nix flake check
+    language: system
+    pass_filenames: false
+    always_run: true

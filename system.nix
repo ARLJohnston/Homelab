@@ -105,6 +105,8 @@
     ollama
   ];
 
+  nixpkgs.config.allowUnfreePredicate = pkg:
+    builtins.elem (lib.getName pkg) ["cuda_cudart" "cuda_nvcc" "cuda_cccl" "libcublas" "cuda_nvrtc"];
   hardware.graphics.enable = true;
   hardware.nvidia = {
     open = false;
