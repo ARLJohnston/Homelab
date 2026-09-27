@@ -105,7 +105,12 @@
     port = 11434;
   };
 
-  systemd.services.ollama.environment = {OLLAMA_CONTEXT_LENGTH = "32768";};
+  systemd.services.ollama = {
+  environment = {OLLAMA_CONTEXT_LENGTH = "32768";};
+    wants = [ "dev-nvidia0.device" ];
+    after = [ "dev-nvidia0.device" ];
+  };
+
 
   environment.systemPackages = with pkgs; [
     ollama-cuda
