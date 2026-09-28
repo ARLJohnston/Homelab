@@ -107,8 +107,6 @@
 
   systemd.services.ollama = {
   environment = {OLLAMA_CONTEXT_LENGTH = "32768";};
-    wants = [ "dev-nvidia0.device" ];
-    after = [ "dev-nvidia0.device" ];
   };
 
 
