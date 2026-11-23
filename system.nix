@@ -94,4 +94,24 @@
       security.secret_key = config.sops.secrets."grafana/secret_key".path;
     };
   };
+  services.traefik = {
+    enable = true;
+
+    staticConfigOptions.entryPoints.web.address = ":80";
+
+    dynamicConfigOptions.http = {
+      routers.media = {
+        rule = "Host(`media.home`)";
+        entryPoints = [ "web" ];
+        service = "media";
+      };
+
+      services.media.loadBalancer.servers = [
+        { url = "http://127.0.0.1:8000"; }
+      ];
+    };
+  };
+
+  networking.firewall.allowedTCPPorts = [ 80 ];
+
 }
