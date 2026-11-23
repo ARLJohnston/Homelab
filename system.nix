@@ -109,11 +109,15 @@
         entryPoints = ["web"];
         service = "media";
       };
-
       services.media.loadBalancer.servers = [
         {url = "http://127.0.0.1:8000";}
       ];
 
+      routers.grafana= {
+        rule = "Host(`grafana.home`)";
+        entryPoints = ["web"];
+        service = "grafana";
+      };
       services.grafana.loadBalancer.servers = [
         {url = "http://127.0.0.1:3000";}
       ];
