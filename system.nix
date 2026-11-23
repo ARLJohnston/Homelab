@@ -114,6 +114,10 @@
         {url = "http://127.0.0.1:8000";}
       ];
 
+      services.grafana.loadBalancer.servers = [
+        {url = "http://127.0.0.1:3000";}
+      ];
+
       routers.dashboard = {
         rule = "Host(`dashboard.home`)";
         entryPoints = ["web"];
